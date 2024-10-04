@@ -1,9 +1,8 @@
-import Counter from "./components/Counter.jsx";
-
+import Shop from "./components/Shop.jsx";
 function App() {
   return (
     <>
-      <Counter />
+      <Shop />
     </>
   );
 }
