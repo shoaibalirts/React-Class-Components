@@ -12,7 +12,8 @@ class Shop extends Component {
       },
       { id: 3, name: "Æble", price: 2.5, origin: "Danmark", count: 1 },
     ],
-    // itemsInBasket: 0,
+    basket: [],
+    itemsInBasket: 0,
   };
 
   increment = (id) => {
@@ -21,9 +22,6 @@ class Shop extends Component {
         item.id === id ? { ...item, count: item.count + 1 } : item
       ),
     }));
-
-    console.log("id: " + id);
-    console.log(this.state.items);
   };
   decrement = (id) => {
     this.setState((prevState) => ({
@@ -31,16 +29,22 @@ class Shop extends Component {
         item.id === id ? { ...item, count: item.count - 1 } : item
       ),
     }));
-
-    console.log("id: " + id);
-    console.log(this.state.items);
   };
+  addToBasket = (basketItem) => {
+    this.setState((prevState) => ({
+      basket: prevState.items.map((item) =>
+        item.id === basketItem ? { ...item } : item
+      ),
+    }));
+    console.log(this.basket);
+  };
+
   render() {
     return (
       <section>
         <h1>Velkommen til butikken</h1>
         <p>Vi har i dag byde på følgende varer:</p>
-        <p>Du har {0} varer i kurven </p>
+        <p>Du har {this.basket} varer i kurven </p>
         <button>Vis kurven</button>
         <table>
           <tbody>
@@ -59,7 +63,9 @@ class Shop extends Component {
                   </td>
                   <td>Kr. {item.price}</td>
                   <td>
-                    <button>Læg i kurv</button>
+                    <button onClick={() => this.addToBasket(item.id)}>
+                      Læg i kurv
+                    </button>
                   </td>
                 </tr>
               ); // map return
